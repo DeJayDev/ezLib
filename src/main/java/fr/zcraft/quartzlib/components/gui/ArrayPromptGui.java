@@ -31,7 +31,7 @@
 package fr.zcraft.quartzlib.components.gui;
 
 import fr.zcraft.quartzlib.tools.Callback;
-import org.apache.commons.lang.NotImplementedException;
+import org.apache.commons.lang3.NotImplementedException;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 

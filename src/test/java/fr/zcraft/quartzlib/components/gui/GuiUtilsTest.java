@@ -35,7 +35,7 @@ package fr.zcraft.quartzlib.components.gui;
 import com.google.common.collect.Lists;
 import java.util.List;
 import junit.framework.Assert;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Test;
 
 

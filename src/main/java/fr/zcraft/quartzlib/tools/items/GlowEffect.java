@@ -34,12 +34,16 @@ import fr.zcraft.quartzlib.core.QuartzComponent;
 import fr.zcraft.quartzlib.core.QuartzLib;
 import fr.zcraft.quartzlib.tools.PluginLogger;
 import fr.zcraft.quartzlib.tools.reflection.Reflection;
+import io.papermc.paper.enchantments.EnchantmentRarity;
 import java.lang.reflect.Field;
 import java.util.Map;
+import java.util.Set;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
+import org.bukkit.entity.EntityCategory;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -47,6 +51,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.inventory.InventoryType;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
@@ -222,13 +227,45 @@ public class GlowEffect extends QuartzComponent {
         }
 
         @Override
+        public @NotNull Component displayName(int i) {
+            return Component.text(ENCHANTMENT_NAME);
+        }
+
+        @Override
+        public boolean isTradeable() {
+            return false;
+        }
+
+        @Override
+        public boolean isDiscoverable() {
+            return false;
+        }
+
+        @Override
+        public @NotNull EnchantmentRarity getRarity() {
+            return EnchantmentRarity.VERY_RARE;
+        }
+
+        @Override
+        public float getDamageIncrease(int i, @NotNull EntityCategory entityCategory) {
+            return 0;
+        }
+
+        @Override
+        public @NotNull Set<EquipmentSlot> getActiveSlots() {
+            return Set.of(EquipmentSlot.HEAD, EquipmentSlot.CHEST,
+                EquipmentSlot.LEGS, EquipmentSlot.FEET,
+                EquipmentSlot.HAND, EquipmentSlot.OFF_HAND);
+        }
+
+        @Override
         public boolean conflictsWith(@NotNull Enchantment other) {
             return false;
         }
 
         @Override
         public @NotNull EnchantmentTarget getItemTarget() {
-            return EnchantmentTarget.ALL;
+            return EnchantmentTarget.WEARABLE;
         }
 
         @Override
@@ -256,5 +293,9 @@ public class GlowEffect extends QuartzComponent {
             return 1;
         }
 
+        @Override
+        public @NotNull String translationKey() {
+            return "ezlib.glow";
+        }
     }
 }

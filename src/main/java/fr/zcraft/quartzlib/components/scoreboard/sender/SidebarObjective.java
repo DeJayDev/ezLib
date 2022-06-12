@@ -35,7 +35,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
-import org.apache.commons.lang.Validate;
+import org.jetbrains.annotations.NotNull;
 
 
 /**
@@ -91,10 +91,7 @@ public class SidebarObjective {
      * @param score The score associated.
      * @return {@code true} if a previous score was overwritten by this one.
      */
-    public boolean setScore(String name, Integer score) {
-        Validate.notNull(name, "The score name cannot be null!");
-        Validate.notNull(score, "The score cannot be null!");
-
+    public boolean setScore(@NotNull String name, @NotNull Integer score) {
         if (name.length() > MAX_LENGTH_SCORE_NAME) {
             name = name.substring(0, MAX_LENGTH_SCORE_NAME);
         }
@@ -107,9 +104,7 @@ public class SidebarObjective {
      * @param name The name of the score.
      * @return {@code true} if a previous score existed with this name.
      */
-    public boolean removeScore(String name) {
-        Validate.notNull(name, "The score name cannot be null!");
-
+    public boolean removeScore(@NotNull String name) {
         return scores.remove(name) != null;
     }
 

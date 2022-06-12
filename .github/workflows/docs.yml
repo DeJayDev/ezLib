@@ -8,18 +8,17 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Setup Java
-        uses: actions/setup-java@v1
+
+      - name: Setup Java 17
+        uses: actions/setup-java@v3
         with:
-          java-version: 8
-      - name: Cache all the things
-        uses: actions/cache@v2
-        with:
-          path: ~/.m2
-          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-          restore-keys: ${{ runner.os }}-m2
+          distribution: 'corretto'
+          java-version: '17'
+          cache: 'maven'
+
       - name: Build JavaDoc
         run: mvn -B javadoc:javadoc -pl quartzlib --file pom.xml
+
       - name: Checkout website repository
         uses: actions/checkout@v2
         with:
@@ -27,6 +26,7 @@ jobs:
           path: web
           branch: master
           persist-credentials: false
+
       - name: Push built documentation to website repository
         shell: bash
         run: |

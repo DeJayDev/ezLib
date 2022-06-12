@@ -37,7 +37,7 @@ import java.io.InputStream;
 import java.util.Locale;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 
 public class ZLibResourceBundleControl extends ResourceBundle.Control {

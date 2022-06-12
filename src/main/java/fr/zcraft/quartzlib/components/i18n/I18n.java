@@ -52,10 +52,10 @@ import java.util.TreeSet;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.Validate;
+import org.apache.commons.lang3.StringUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 
 public class I18n extends QuartzComponent {
@@ -311,9 +311,7 @@ public class I18n extends QuartzComponent {
      * @param priority The priority to set for this translator. Translators with
      *                 a higher priority will be called first for a translation.
      */
-    public static void load(final File file, int priority) {
-        Validate.notNull(file, "The File to load into the i18n component cannot be null.");
-
+    public static void load(@NotNull final File file, int priority) {
         if (!file.exists()) {
             return;
         }

@@ -41,8 +41,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
-import org.apache.commons.lang.Validate;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 
 /**
@@ -171,9 +171,7 @@ public class ObjectiveSender {
      *
      * @param objective The objective to be displayed.
      */
-    public static void send(SidebarObjective objective) {
-        Validate.notNull(objective, "The objective cannot be null");
-
+    public static void send(@NotNull SidebarObjective objective) {
         for (UUID receiver : objective.getReceivers()) {
             try {
                 send(receiver, objective);
@@ -226,9 +224,7 @@ public class ObjectiveSender {
      *
      * @param objective The objective to update.
      */
-    public static void updateDisplayName(SidebarObjective objective) {
-        Validate.notNull(objective, "The objective cannot be null");
-
+    public static void updateDisplayName(@NotNull SidebarObjective objective) {
         for (UUID receiver : objective.getReceivers()) {
             try {
                 String currentPlayerObjective = sentObjectives.get(receiver);
