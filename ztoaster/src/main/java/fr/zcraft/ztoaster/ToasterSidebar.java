@@ -30,10 +30,10 @@
 
 package fr.zcraft.ztoaster;
 
-import fr.zcraft.quartzlib.components.i18n.I;
-import fr.zcraft.quartzlib.components.i18n.I18n;
-import fr.zcraft.quartzlib.components.scoreboard.Sidebar;
-import fr.zcraft.quartzlib.components.scoreboard.SidebarMode;
+import fr.zcraft.ezlib.components.i18n.I;
+import fr.zcraft.ezlib.components.i18n.I18n;
+import fr.zcraft.ezlib.components.scoreboard.Sidebar;
+import fr.zcraft.ezlib.components.scoreboard.SidebarMode;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;

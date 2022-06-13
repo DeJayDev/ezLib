@@ -1,38 +1,40 @@
-QuartzLib
+EZLib
 ==========
 
 Helper library for Bukkit plugins development.
 ----
 
-###### (Formerly known as zLib)
+### ⚠️ This project is still actively being forked, modified, and the directions below are still out of date. 
+
+###### (Formerly known as QuartzLib (Formerly known as zLib))
 
 ### How to use this library in your plugin?
 
 If you are using Maven to build your plugin, follow these simple steps. Other builds methods are not supported (but you can use them of course).  
-Currently, QuartzLib requires **Java 8** or later and **Bukkit 1.15** or later.
+Currently, EZLib requires **Java 17** or later and **Paper 1.19**.
 
 #### I'm starting a new plugin
 
-Either create a plugin as usual and add the QuartzLib as explained below, or use [the plugin bootstrap generator](https://github.com/zDevelopers/zLib-CodeGen-Utils#plugins-bootstrap-generator) and answer “yes” when the tool asks if you want to use QuartzLib.
+Create a plugin how you normally would and add the EZLib.
 
-#### I want to add QuartzLib to an existing project
+#### I want to add EZLib to an existing project
 
 1. Add our Maven repository to your `pom.xml` file.
   
     ```xml
         <repository>
-            <id>QuartzLib</id>
-            <url>https://maven.zcraft.fr/QuartzLib</url>
+            <id>EZLib</id>
+            <url>https://maven.pkg.github.com/DeJayDev</url>
         </repository>
     ```
 
-2. Add QuartzLib as a dependency.
+2. Add EZLib as a dependency.
   
     ```xml
         <dependency>
-            <groupId>fr.zcraft</groupId>
-            <artifactId>quartzlib</artifactId>
-            <version>0.0.3</version>
+            <groupId>dev.dejay</groupId>
+            <artifactId>ezlib</artifactId>
+            <version>0.1.0</version>
         </dependency>
     ```
     
@@ -55,7 +57,7 @@ Either create a plugin as usual and add the QuartzLib as explained below, or use
                         </artifactSet>
                         <relocations>
                             <relocation>
-                                <pattern>fr.zcraft.quartzlib</pattern>
+                                <pattern>fr.zcraft.ezlib</pattern>
                                 <shadedPattern>YOUR.OWN.PACKAGE</shadedPattern>
                             </relocation>
                         </relocations>
@@ -81,5 +83,6 @@ Either create a plugin as usual and add the QuartzLib as explained below, or use
    mvn clean install
    ```
 
-You should also update your code, so your main class extends [`QuartzPlugin`](https://zdevelopers.github.io/QuartzLib/?fr/zcraft/quartzlib/core/QuartzPlugin.html) instead of `JavaPlugin`. No other changes are required. This will allow you to use directly some useful methods to load your plugin's components.  
+You should also update your code, so your main class extends [`EZLib`](https://zdevelopers.github.io/QuartzLib/?fr/zcraft/quartzlib/core/QuartzPlugin.html) instead of `JavaPlugin`. 
+No other changes are required. This will allow you to use directly some useful methods to load your plugin's components.  
 Check out [the wiki](https://github.com/zDevelopers/QuartzLib/wiki/Installation) for more information.

@@ -31,10 +31,10 @@
 
 package fr.zcraft.ztoaster.commands;
 
-import fr.zcraft.quartzlib.components.commands.Command;
-import fr.zcraft.quartzlib.components.commands.CommandException;
-import fr.zcraft.quartzlib.components.commands.CommandInfo;
-import fr.zcraft.quartzlib.components.gui.Gui;
+import fr.zcraft.ezlib.components.commands.Command;
+import fr.zcraft.ezlib.components.commands.CommandException;
+import fr.zcraft.ezlib.components.commands.CommandInfo;
+import fr.zcraft.ezlib.components.gui.Gui;
 import fr.zcraft.ztoaster.ToastExplorer;
 
 @CommandInfo(name = "open")

@@ -1,6 +1,5 @@
 plugins {
-    checkstyle
-    `java-library`
+    java
     `maven-publish`
     idea
     id("io.papermc.paperweight.userdev") version "1.3.7"
@@ -8,7 +7,7 @@ plugins {
 
 group = "fr.zcraft"
 version = "0.1.0"
-description = "quartzlib"
+description = "ezlib"
 
 java {
     toolchain.languageVersion.set(JavaLanguageVersion.of(17))
@@ -48,6 +47,7 @@ tasks {
 
     processResources {
         filteringCharset = Charsets.UTF_8.name() // We want UTF-8 for everything
+
     }
 
     test {

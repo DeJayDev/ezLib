@@ -1,6 +1,7 @@
 name: CI
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - master
@@ -22,7 +23,10 @@ jobs:
         with:
           distribution: 'corretto'
           java-version: '17'
-          cache: 'maven'
+          cache: 'gradle'
 
-      - name: Build with Maven
-        run: mvn -B test package --file pom.xml
+      - name: Validate Gradle
+        uses: gradle/wrapper-validation-action@v1
+
+      - name: Build with Gradle
+        run: ./gradlew build

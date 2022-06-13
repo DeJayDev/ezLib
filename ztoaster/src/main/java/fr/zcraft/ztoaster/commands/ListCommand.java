@@ -30,10 +30,10 @@
 
 package fr.zcraft.ztoaster.commands;
 
-import fr.zcraft.quartzlib.components.commands.Command;
-import fr.zcraft.quartzlib.components.commands.CommandException;
-import fr.zcraft.quartzlib.components.commands.CommandInfo;
-import fr.zcraft.quartzlib.components.i18n.I;
+import fr.zcraft.ezlib.components.commands.Command;
+import fr.zcraft.ezlib.components.commands.CommandException;
+import fr.zcraft.ezlib.components.commands.CommandInfo;
+import fr.zcraft.ezlib.components.i18n.I;
 import fr.zcraft.ztoaster.Toast;
 import fr.zcraft.ztoaster.Toaster;
 import java.util.ArrayList;

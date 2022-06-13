@@ -31,48 +31,4 @@ jobs:
         with:
           distribution: 'corretto'
           java-version: '17'
-          cache: 'maven'
-
-      - name: Extract project name
-        id: project-name
-        uses: actions/github-script@v3
-        with:
-          script: return context.repo.repo
-          result-encoding: string
-
-      - name: Publish to GitHub Packages
-        id: maven-publish
-        run: |
-          TAG_NAME=${GIT_REF_NAME##*/}
-          REVISION_NAME=${TAG_NAME:1}
-
-          mvn -B deploy -pl quartzlib -am "-Drevision=$REVISION_NAME"
-
-          JAR_PATH=$(ls ./quartzlib/target/*.jar | tail -n 1)
-          JAR_NAME=$(basename $JAR_PATH)
-          echo "::set-output name=jar_path::$JAR_PATH"
-          echo "::set-output name=jar_name::$JAR_NAME"
-        env:
-          GIT_REF_NAME: ${{ github.ref }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Create new GitHub Release
-        id: create-release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: ${{ steps.project-name.outputs.result }} ${{ github.ref }}
-          draft: true
-          prerelease: false
-
-      - name: Upload GitHub Release Asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create-release.outputs.upload_url }}
-          asset_path: ${{ steps.maven-publish.outputs.jar_path }}
-          asset_name: ${{ steps.maven-publish.outputs.jar_name }}
-          asset_content_type: application/java-archive
+          cache: 'gradle'
