@@ -1,4 +1,4 @@
-name: Build documentation
+name: Generate Javadocs
 
 on:
   push:
@@ -6,7 +6,9 @@ on:
 
 jobs:
   javadoc:
-    runs-on: ubuntu-latest
+    name: Generate Javadocs
+    runs-on: ubuntu-22.04
+
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -16,13 +18,20 @@ jobs:
         with:
           distribution: 'corretto'
           java-version: '17'
-          cache: 'gradle'
 
       - name: Validate Gradle
         uses: gradle/wrapper-validation-action@v1
 
+      - name: Cache Gradle Wrapper and Dependencies
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-cache-${{ hashFiles('**/*.gradle', '**/*.gradle.kts', '**/gradle/wrapper/gradle-wrapper.properties') }}
+
       - name: Build Javadoc
-        run: ./gradlew javadocs
+        run: ./gradlew javadoc --no-daemon
 
       # - name: Checkout website repository
       #  uses: actions/checkout@v2
