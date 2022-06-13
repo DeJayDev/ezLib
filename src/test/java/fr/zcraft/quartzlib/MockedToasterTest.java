@@ -2,8 +2,8 @@ package fr.zcraft.quartzlib;
 
 import be.seeseemelk.mockbukkit.MockBukkit;
 import be.seeseemelk.mockbukkit.ServerMock;
-import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 
 /**
  * A base class for tests, that sets up a mock server and enables the Toaster plugin inside it.
@@ -12,13 +12,13 @@ public abstract class MockedToasterTest {
     protected ServerMock server;
     protected Toaster plugin;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         server = MockBukkit.mock();
         plugin = MockBukkit.load(Toaster.class);
     }
 
-    @After
+    @AfterEach
     public void tearDown() {
         MockBukkit.unmock();
     }

@@ -40,48 +40,46 @@ import java.util.Set;
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
-import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-@SuppressWarnings("checkstyle:linelength") // Justification: tests are much more readable with one per line
+@SuppressWarnings("checkstyle:linelength")
+// Justification: tests are much more readable with one per line
 public class ItemUtilsTest extends MockedBukkitTest {
 
     @Test
     public void chatColorAreCorrectlyConvertedToDye() {
         final Map<ChatColor, DyeColor> expectedConversion = ImmutableMap.<ChatColor, DyeColor>builder()
-                // All 16 colours are converted to their closest match
-                .put(ChatColor.BLACK, DyeColor.BLACK)
-                .put(ChatColor.BLUE, DyeColor.BLUE)
-                .put(ChatColor.DARK_BLUE, DyeColor.BLUE)
-                .put(ChatColor.GREEN, DyeColor.LIME)
-                .put(ChatColor.DARK_GREEN, DyeColor.GREEN)
-                .put(ChatColor.DARK_AQUA, DyeColor.CYAN)
-                .put(ChatColor.DARK_RED, DyeColor.RED)
-                .put(ChatColor.DARK_PURPLE, DyeColor.PURPLE)
-                .put(ChatColor.GOLD, DyeColor.YELLOW)
-                .put(ChatColor.YELLOW, DyeColor.YELLOW)
-                .put(ChatColor.GRAY, DyeColor.LIGHT_GRAY)
-                .put(ChatColor.DARK_GRAY, DyeColor.GRAY)
-                .put(ChatColor.AQUA, DyeColor.LIGHT_BLUE)
-                .put(ChatColor.RED, DyeColor.ORANGE)
-                .put(ChatColor.LIGHT_PURPLE, DyeColor.PINK)
-                .put(ChatColor.WHITE, DyeColor.WHITE)
-
-                .build();
+            // All 16 colours are converted to their closest match
+            .put(ChatColor.BLACK, DyeColor.BLACK)
+            .put(ChatColor.BLUE, DyeColor.BLUE)
+            .put(ChatColor.DARK_BLUE, DyeColor.BLUE)
+            .put(ChatColor.GREEN, DyeColor.LIME)
+            .put(ChatColor.DARK_GREEN, DyeColor.GREEN)
+            .put(ChatColor.DARK_AQUA, DyeColor.CYAN)
+            .put(ChatColor.DARK_RED, DyeColor.RED)
+            .put(ChatColor.DARK_PURPLE, DyeColor.PURPLE)
+            .put(ChatColor.GOLD, DyeColor.YELLOW)
+            .put(ChatColor.YELLOW, DyeColor.YELLOW)
+            .put(ChatColor.GRAY, DyeColor.LIGHT_GRAY)
+            .put(ChatColor.DARK_GRAY, DyeColor.GRAY)
+            .put(ChatColor.AQUA, DyeColor.LIGHT_BLUE)
+            .put(ChatColor.RED, DyeColor.ORANGE)
+            .put(ChatColor.LIGHT_PURPLE, DyeColor.PINK)
+            .put(ChatColor.WHITE, DyeColor.WHITE)
+            .build();
 
         final Set<DyeColor> dyes = new HashSet<>(expectedConversion.values());
-        Assert.assertEquals(
-                "All dye colors are matched against something except brown and magenta",
-                dyes.size(), DyeColor.values().length - 2
-        );
+        Assertions.assertEquals(
+            dyes.size(), DyeColor.values().length - 2,
+            "All dye colors are matched against something except brown and magenta");
 
         Arrays.stream(ChatColor.values()).forEach(chatColor -> {
             final DyeColor dye = expectedConversion.get(chatColor);
-            Assert.assertEquals(
-                    chatColor + " is correctly converted to" + (dye != null ? dye : "Optional.EMPTY"),
-                    ItemUtils.asDye(chatColor),
-                    dye != null ? Optional.of(dye) : Optional.empty()
+            Assertions.assertEquals(
+                ItemUtils.asDye(chatColor),
+                dye != null ? Optional.of(dye) : Optional.empty(),
+                chatColor + " is correctly converted to" + (dye != null ? dye : "Optional.EMPTY")
             );
         });
     }

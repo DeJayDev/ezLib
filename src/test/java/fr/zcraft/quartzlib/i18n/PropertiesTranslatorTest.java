@@ -37,12 +37,13 @@ import fr.zcraft.quartzlib.tools.reflection.Reflection;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Locale;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 
 public class PropertiesTranslatorTest {
+
     private final Translator translator;
 
     public PropertiesTranslatorTest() throws IOException {
@@ -51,98 +52,99 @@ public class PropertiesTranslatorTest {
         try {
             Reflection.call(translator, "load");
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-            Assert.fail("Unable to load translations");
+            Assertions.fail("Unable to load translations");
         }
     }
 
     @Test
     @BeforeEach
     public void testTranslatorTypeFromFileName() {
-        Assert.assertEquals("Translator instance badly loaded from file name", PropertiesTranslator.class,
-                translator.getClass());
+        Assertions.assertEquals(PropertiesTranslator.class, translator.getClass(), "Translator instance badly loaded from file name");
     }
 
     @Test
     public void testAuthors() {
-        Assert.assertEquals("Last translator badly retrieved", "Amaury Carrade", translator.getLastTranslator());
-        Assert.assertEquals("Translation team badly retrieved", "Amaury Carrade", translator.getTranslationTeam());
-        Assert.assertEquals("ReportErrorsTo badly retrieved", "AmauryCarrade", translator.getReportErrorsTo());
+        Assertions.assertEquals("Amaury Carrade", translator.getLastTranslator(), "Last translator badly retrieved");
+        Assertions.assertEquals("Amaury Carrade", translator.getTranslationTeam(), "Translation team badly retrieved");
+        Assertions.assertEquals("AmauryCarrade", translator.getReportErrorsTo(), "ReportErrorsTo badly retrieved");
     }
 
     @Test
     public void testAuthorsWithoutMeta() throws IOException {
         PropertiesTranslator noMetaTranslator =
-                new PropertiesTranslator(Locale.UK, TestsUtils.tempResource("i18n/en_GB.no-meta.properties"));
+            new PropertiesTranslator(Locale.UK, TestsUtils.tempResource("i18n/en_GB.no-meta.properties"));
 
         try {
             Reflection.call(noMetaTranslator, "load");
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-            Assert.fail("Unable to load translations");
+            Assertions.fail("Unable to load translations");
         }
 
-        Assert.assertNull("Last translator retrieved in no-meta mode", noMetaTranslator.getLastTranslator());
-        Assert.assertNull("Translation team retrieved in no-meta mode", noMetaTranslator.getTranslationTeam());
-        Assert.assertNull("ReportErrorsTo retrieved in no-meta mode", noMetaTranslator.getReportErrorsTo());
+        Assertions.assertNull(noMetaTranslator.getLastTranslator(), "Last translator retrieved in no-meta mode");
+        Assertions.assertNull(noMetaTranslator.getTranslationTeam(), "Translation team retrieved in no-meta mode");
+        Assertions.assertNull(noMetaTranslator.getReportErrorsTo(), "ReportErrorsTo retrieved in no-meta mode");
     }
 
     @Test
     public void testPluralIndex() {
-        Assert.assertEquals("Bad index plural (count=0)", 0, ((int) translator.getPluralIndex(0)));
-        Assert.assertEquals("Bad index plural (count=1)", 0, ((int) translator.getPluralIndex(1)));
-        Assert.assertEquals("Bad index plural (count=2)", 0, ((int) translator.getPluralIndex(2)));
-        Assert.assertEquals("Bad index plural (count=8)", 0, ((int) translator.getPluralIndex(8)));
+        Assertions.assertEquals(0, ((int) translator.getPluralIndex(0)), "Bad index plural (count=0)");
+        Assertions.assertEquals(0, ((int) translator.getPluralIndex(1)), "Bad index plural (count=1)");
+        Assertions.assertEquals(0, ((int) translator.getPluralIndex(2)), "Bad index plural (count=2)");
+        Assertions.assertEquals(0, ((int) translator.getPluralIndex(8)), "Bad index plural (count=8)");
     }
 
     @Test
     public void testLocale() {
-        Assert.assertEquals("Bad exposed locale", Locale.FRANCE, translator.getLocale());
+        Assertions.assertEquals(Locale.FRANCE, translator.getLocale(), "Bad exposed locale");
     }
 
     @Test
     public void testBasicTranslations() {
-        Assert.assertEquals("Bad translation", "{darkgreen}{bold}Cuisinier",
-                translator.translate(null, "sidebar.cook", null, null));
-        Assert.assertEquals("Bad translation with spaces", "{yellow}{bold}Dans le toaster",
-                translator.translate(null, "sidebar.inside-the-toaster", null, null));
-        Assert.assertEquals("Bad translation with UTF-8", "{red}{bold}♨ Toaster ♨",
-                translator.translate(null, "sidebar.toaster-cooking", null, null));
+        Assertions.assertEquals("{darkgreen}{bold}Cuisinier",
+            translator.translate(null, "sidebar.cook", null, null), "Bad translation");
+        Assertions.assertEquals("{yellow}{bold}Dans le toaster",
+            translator.translate(null, "sidebar.inside-the-toaster", null, null), "Bad translation with spaces");
+        Assertions.assertEquals("{red}{bold}♨ Toaster ♨",
+            translator.translate(null, "sidebar.toaster-cooking", null, null), "Bad translation with UTF-8");
     }
 
     @Test
     public void testContexts() {
-        Assert.assertEquals("Bad translation: context not ignored", "{gold}{bold}Cuit",
-                translator.translate("context", "sidebar.cooked", null, null));
-        Assert.assertEquals("Bad translation with spaces: context not ignored", "{yellow}{bold}Dans le toaster",
-                translator.translate("context", "sidebar.inside-the-toaster", null, null));
-        Assert.assertEquals("Bad translation with UTF-8: context not ignored", "{red}{bold}♨ Toaster ♨",
-                translator.translate("context", "sidebar.toaster-cooking", null, null));
+        Assertions.assertEquals("{gold}{bold}Cuit",
+            translator.translate("context", "sidebar.cooked", null, null), "Bad translation: context not ignored");
+        Assertions.assertEquals("{yellow}{bold}Dans le toaster",
+            translator.translate("context", "sidebar.inside-the-toaster", null, null), "Bad translation with spaces: context not ignored");
+        Assertions.assertEquals("{red}{bold}♨ Toaster ♨",
+            translator.translate("context", "sidebar.toaster-cooking", null, null), "Bad translation with UTF-8: context not ignored");
     }
 
     @Test
     public void testPlurals() {
-        Assert.assertEquals("Bad translation with plural (singular)", "Un toast ajouté.",
-                translator.translate(null, "one-toast-added", "toasts-added", 1));
-        Assert.assertEquals("Bad translation with plural (plural, should be ignored)", "Un toast ajouté.",
-                translator.translate(null, "one-toast-added", "toasts-added", 2));
+        Assertions.assertEquals("Un toast ajouté.",
+            translator.translate(null, "one-toast-added", "toasts-added", 1), "Bad translation with plural (singular)");
+        Assertions.assertEquals("Un toast ajouté.",
+            translator.translate(null, "one-toast-added", "toasts-added", 2), "Bad translation with plural (plural, should be ignored)");
     }
 
     @Test
     public void testUnknownTranslations() {
-        Assert.assertNull("Non-null translation from unknown messageId, without context",
-                translator.translate(null, "unknown.translation", null, null));
-        Assert.assertNull("Non-null translation from unknown messageId, with context",
-                translator.translate("context", "unknown.translation", null, null));
-        Assert.assertNull("Non-null translation from unknown messageId, with empty context",
-                translator.translate("", "unknown.translation", null, null));
-        Assert.assertNull("Non-null translation from unknown messageId, without context, with plural (singular)",
-                translator.translate(null, "unknown.translation", "unknown.translations", 0));
-        Assert.assertNull(
-                "Non-null translation from unknown messageId, without context, with plural (plural, should be ignored)",
-                translator.translate(null, "unknown.translation", "unknown.translations", 2));
-        Assert.assertNull("Non-null translation from unknown messageId, with context, with plural (singular)",
-                translator.translate("context", "unknown.translation", "unknown.translations", 0));
-        Assert.assertNull(
-                "Non-null translation from unknown messageId, with context, with plural (plural, should be ignored)",
-                translator.translate("context", "unknown.translation", "unknown.translations", 2));
+        Assertions.assertNull(
+            translator.translate(null, "unknown.translation", null, null), "Non-null translation from unknown messageId, without context");
+        Assertions.assertNull(
+            translator.translate("context", "unknown.translation", null, null), "Non-null translation from unknown messageId, with context");
+        Assertions.assertNull(
+            translator.translate("", "unknown.translation", null, null), "Non-null translation from unknown messageId, with empty context");
+        Assertions.assertNull(
+            translator.translate(null, "unknown.translation", "unknown.translations", 0),
+            "Non-null translation from unknown messageId, without context, with plural (singular)");
+        Assertions.assertNull(
+            translator.translate(null, "unknown.translation", "unknown.translations", 2),
+            "Non-null translation from unknown messageId, without context, with plural (plural, should be ignored)");
+        Assertions.assertNull(
+            translator.translate("context", "unknown.translation", "unknown.translations", 0),
+            "Non-null translation from unknown messageId, with context, with plural (singular)");
+        Assertions.assertNull(
+            translator.translate("context", "unknown.translation", "unknown.translations", 2),
+            "Non-null translation from unknown messageId, with context, with plural (plural, should be ignored)");
     }
 }

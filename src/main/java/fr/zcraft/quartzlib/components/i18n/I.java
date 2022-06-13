@@ -181,6 +181,7 @@ public class I {
      * @deprecated Use {@link #tlc(Locale, String, String, Object...)} for the gettext
      *     extractor to be able to read the strings.
      */
+    @Deprecated
     public static String tc(Locale locale, String context, String text, Object... parameters) {
         return I18n.translate(locale, context, text, null, null, parameters);
     }
@@ -230,6 +231,7 @@ public class I {
      * @deprecated Use {@link #tlcn(Locale, String, String, String, Integer, Object...)} for the gettext
      *     extractor to be able to read the strings.
      */
+    @Deprecated
     public static String tcn(Locale locale, String context, String singular, String plural, Integer count,
                              Object... parameters) {
         return I18n.translate(locale, context, singular, plural, count, parameters);

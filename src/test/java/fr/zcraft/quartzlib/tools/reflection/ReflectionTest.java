@@ -34,24 +34,25 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import junit.framework.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class ReflectionTest {
+
     @Test
     public void testClosestType() {
         Class closestType =
-                Reflection.getClosestType(ArrayList.class, Object.class, String.class, List.class, Map.class);
+            Reflection.getClosestType(ArrayList.class, Object.class, String.class, List.class, Map.class);
 
-        Assert.assertEquals(List.class, closestType);
+        Assertions.assertEquals(List.class, closestType);
 
         closestType = Reflection.getClosestType(HashMap.class, Object.class, String.class, List.class, Integer.class);
-        Assert.assertEquals(Object.class, closestType);
+        Assertions.assertEquals(Object.class, closestType);
 
         closestType = Reflection.getClosestType(String.class, Object.class, String.class, List.class, Integer.class);
-        Assert.assertEquals(String.class, closestType);
+        Assertions.assertEquals(String.class, closestType);
 
         closestType = Reflection.getClosestType(HashMap.class, String.class, List.class, Integer.class);
-        Assert.assertEquals(null, closestType);
+        Assertions.assertNull(closestType);
     }
 }

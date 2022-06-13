@@ -34,79 +34,80 @@ import fr.zcraft.quartzlib.tools.text.ChatColorParser;
 import fr.zcraft.quartzlib.tools.text.ChatColoredString;
 import java.util.EnumSet;
 import org.bukkit.ChatColor;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class ChatColorParserTest {
+
     @Test
     public void helloWorldTest() {
         String chatColoredText = ChatColor.RED + "Hello" + ChatColor.GREEN + " world !";
         ChatColorParser parser = new ChatColorParser(chatColoredText);
 
-        Assert.assertTrue(parser.hasNext());
+        Assertions.assertTrue(parser.hasNext());
         ChatColoredString str = parser.next();
-        Assert.assertEquals("Hello", str.getString());
-        Assert.assertEquals(str.getModifiers(), EnumSet.of(ChatColor.RED));
+        Assertions.assertEquals("Hello", str.getString());
+        Assertions.assertEquals(str.getModifiers(), EnumSet.of(ChatColor.RED));
 
-        Assert.assertTrue(parser.hasNext());
+        Assertions.assertTrue(parser.hasNext());
         str = parser.next();
-        Assert.assertEquals(" world !", str.getString());
-        Assert.assertEquals(str.getModifiers(), EnumSet.of(ChatColor.GREEN));
+        Assertions.assertEquals(" world !", str.getString());
+        Assertions.assertEquals(str.getModifiers(), EnumSet.of(ChatColor.GREEN));
 
-        Assert.assertFalse(parser.hasNext());
+        Assertions.assertFalse(parser.hasNext());
     }
 
     @Test
     public void emptyTest() {
         ChatColorParser parser = new ChatColorParser("");
 
-        Assert.assertTrue(parser.hasNext());
+        Assertions.assertTrue(parser.hasNext());
         ChatColoredString str = parser.next();
-        Assert.assertEquals("", str.getString());
-        Assert.assertEquals(str.getModifiers(), EnumSet.noneOf(ChatColor.class));
+        Assertions.assertEquals("", str.getString());
+        Assertions.assertEquals(str.getModifiers(), EnumSet.noneOf(ChatColor.class));
 
-        Assert.assertFalse(parser.hasNext());
+        Assertions.assertFalse(parser.hasNext());
     }
 
     @Test
     public void delimiterAtTheEndTest() {
         ChatColorParser parser = new ChatColorParser(ChatColor.RED.toString());
 
-        Assert.assertTrue(parser.hasNext());
+        Assertions.assertTrue(parser.hasNext());
         ChatColoredString str = parser.next();
-        Assert.assertEquals("", str.getString());
-        Assert.assertEquals(str.getModifiers(), EnumSet.of(ChatColor.RED));
+        Assertions.assertEquals("", str.getString());
+        Assertions.assertEquals(str.getModifiers(), EnumSet.of(ChatColor.RED));
 
-        Assert.assertFalse(parser.hasNext());
+        Assertions.assertFalse(parser.hasNext());
     }
 
     @Test
     public void resetTest() {
         ChatColorParser parser = new ChatColorParser(ChatColor.RED + "Hello" + ChatColor.RESET + " world !");
 
-        Assert.assertTrue(parser.hasNext());
+        Assertions.assertTrue(parser.hasNext());
         ChatColoredString str = parser.next();
-        Assert.assertEquals("Hello", str.getString());
-        Assert.assertEquals(str.getModifiers(), EnumSet.of(ChatColor.RED));
+        Assertions.assertEquals("Hello", str.getString());
+        Assertions.assertEquals(str.getModifiers(), EnumSet.of(ChatColor.RED));
 
-        Assert.assertTrue(parser.hasNext());
+        Assertions.assertTrue(parser.hasNext());
         str = parser.next();
-        Assert.assertEquals(" world !", str.getString());
-        Assert.assertEquals(str.getModifiers(), EnumSet.noneOf(ChatColor.class));
+        Assertions.assertEquals(" world !", str.getString());
+        Assertions.assertEquals(str.getModifiers(), EnumSet.noneOf(ChatColor.class));
 
-        Assert.assertFalse(parser.hasNext());
+        Assertions.assertFalse(parser.hasNext());
     }
 
     @Test
     public void doubleCodeTest() {
         ChatColorParser parser = new ChatColorParser(ChatColor.RED + "" + ChatColor.UNDERLINE + "Hello");
 
-        Assert.assertTrue(parser.hasNext());
+        Assertions.assertTrue(parser.hasNext());
         ChatColoredString str = parser.next();
-        Assert.assertEquals("Hello", str.getString());
-        Assert.assertEquals(str.getModifiers(), EnumSet.of(ChatColor.RED, ChatColor.UNDERLINE));
+        Assertions.assertEquals("Hello", str.getString());
+        Assertions.assertEquals(str.getModifiers(), EnumSet.of(ChatColor.RED, ChatColor.UNDERLINE));
 
-        Assert.assertFalse(parser.hasNext());
+        Assertions.assertFalse(parser.hasNext());
     }
 
     @Test
@@ -114,17 +115,17 @@ public class ChatColorParserTest {
         String chatColoredText = ChatColor.RED + "" + ChatColor.UNDERLINE + "Hello" + ChatColor.GREEN + " world !";
         ChatColorParser parser = new ChatColorParser(chatColoredText);
 
-        Assert.assertTrue(parser.hasNext());
+        Assertions.assertTrue(parser.hasNext());
         ChatColoredString str = parser.next();
-        Assert.assertEquals("Hello", str.getString());
-        Assert.assertEquals(str.getModifiers(), EnumSet.of(ChatColor.RED, ChatColor.UNDERLINE));
+        Assertions.assertEquals("Hello", str.getString());
+        Assertions.assertEquals(str.getModifiers(), EnumSet.of(ChatColor.RED, ChatColor.UNDERLINE));
 
-        Assert.assertTrue(parser.hasNext());
+        Assertions.assertTrue(parser.hasNext());
         str = parser.next();
-        Assert.assertEquals(" world !", str.getString());
-        Assert.assertEquals(str.getModifiers(), EnumSet.of(ChatColor.GREEN, ChatColor.UNDERLINE));
+        Assertions.assertEquals(" world !", str.getString());
+        Assertions.assertEquals(str.getModifiers(), EnumSet.of(ChatColor.GREEN, ChatColor.UNDERLINE));
 
-        Assert.assertFalse(parser.hasNext());
+        Assertions.assertFalse(parser.hasNext());
 
     }
 }

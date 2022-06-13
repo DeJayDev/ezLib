@@ -55,17 +55,17 @@ public class TestsUtils {
 
         InputStream inputStream = getResource(name);
         File tempFile = File.createTempFile("quartzlib-unit-tests-" + name.replace(".", "-"),
-                ".tmp" + (extension != null ? "." + extension : ""));
+            ".tmp" + (extension != null ? "." + extension : ""));
 
-        OutputStream outputStream = new FileOutputStream(tempFile);
+        try(OutputStream outputStream = new FileOutputStream(tempFile)) {
+            int read;
+            byte[] bytes = new byte[1024];
 
-        int read;
-        byte[] bytes = new byte[1024];
+            while ((read = inputStream.read(bytes)) != -1) {
+                outputStream.write(bytes, 0, read);
+            }
 
-        while ((read = inputStream.read(bytes)) != -1) {
-            outputStream.write(bytes, 0, read);
+            return tempFile;
         }
-
-        return tempFile;
     }
 }

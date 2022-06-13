@@ -33,15 +33,16 @@ package fr.zcraft.quartzlib.components.rawtext;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
-import junit.framework.Assert;
 import org.bukkit.ChatColor;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 
 public class RawTextTest {
+
     private static void assertJson(RawText part, String jsonMessage) {
         JSONObject obj;
         try {
@@ -49,7 +50,7 @@ public class RawTextTest {
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
-        Assert.assertEquals(obj.toJSONString(), part.toJSONString());
+        Assertions.assertEquals(obj.toJSONString(), part.toJSONString());
     }
 
     @Test
@@ -61,9 +62,9 @@ public class RawTextTest {
     @Test
     public void extraedMessageTest() {
         RawText text = new RawText("Hello")
-                .then("world")
-                .then("!")
-                .build();
+            .then("world")
+            .then("!")
+            .build();
         assertJson(text, "{\"text\":\"Hello\", \"extra\":[{\"text\":\"world\"}, {\"text\":\"!\"}]}");
     }
 
@@ -92,18 +93,17 @@ public class RawTextTest {
         styleNames.put(ChatColor.WHITE, "white");
         styleNames.put(ChatColor.YELLOW, "yellow");
 
-        Assert.assertEquals("All values (except reset) are covered",
-                ChatColor.values().length - 1, styleNames.size());
+        Assertions.assertEquals(ChatColor.values().length - 1, styleNames.size(), "All values (except reset) are covered");
 
         for (ChatColor color : styleNames.keySet()) {
-            Assert.assertEquals(RawText.toStyleName(color), styleNames.get(color));
+            Assertions.assertEquals(RawText.toStyleName(color), styleNames.get(color));
         }
     }
 
     @Test
     public void colorTest() {
         RawText text = new RawText("test")
-                .color(ChatColor.RED);
+            .color(ChatColor.RED);
 
         assertJson(text, "{\"text\":\"test\", \"color\": \"red\"}");
     }
@@ -111,24 +111,24 @@ public class RawTextTest {
     @Test
     public void styleTest() {
         final String styleMessage =
-                "{\"text\":\"test\", "
-                        + "\"bold\": true, "
-                        + "\"italic\": true, "
-                        + "\"underlined\": true, "
-                        + "\"strikethrough\": true, "
-                        + "\"obfuscated\": true}";
+            "{\"text\":\"test\", "
+                + "\"bold\": true, "
+                + "\"italic\": true, "
+                + "\"underlined\": true, "
+                + "\"strikethrough\": true, "
+                + "\"obfuscated\": true}";
 
         RawText text = new RawText("test")
-                .style(ChatColor.BOLD)
-                .style(ChatColor.ITALIC)
-                .style(ChatColor.UNDERLINE)
-                .style(ChatColor.STRIKETHROUGH)
-                .style(ChatColor.MAGIC);
+            .style(ChatColor.BOLD)
+            .style(ChatColor.ITALIC)
+            .style(ChatColor.UNDERLINE)
+            .style(ChatColor.STRIKETHROUGH)
+            .style(ChatColor.MAGIC);
 
         assertJson(text, styleMessage);
 
         RawText text2 = new RawText("test")
-                .style(ChatColor.BOLD, ChatColor.ITALIC, ChatColor.UNDERLINE, ChatColor.STRIKETHROUGH, ChatColor.MAGIC);
+            .style(ChatColor.BOLD, ChatColor.ITALIC, ChatColor.UNDERLINE, ChatColor.STRIKETHROUGH, ChatColor.MAGIC);
 
         assertJson(text2, styleMessage);
     }
@@ -136,26 +136,26 @@ public class RawTextTest {
     @Test
     public void clickTest() throws URISyntaxException {
         final String urlTest =
-                "{\"text\":\"test\", \"clickEvent\": {\"action\": \"open_url\", \"value\": \"https://www.zcraft.fr\"} }";
+            "{\"text\":\"test\", \"clickEvent\": {\"action\": \"open_url\", \"value\": \"https://www.zcraft.fr\"} }";
         final String commandTest =
-                "{\"text\":\"test\", \"clickEvent\": {\"action\": \"run_command\", \"value\": \"/say hi\"} }";
+            "{\"text\":\"test\", \"clickEvent\": {\"action\": \"run_command\", \"value\": \"/say hi\"} }";
         final String suggestTest =
-                "{\"text\":\"test\", \"clickEvent\": {\"action\": \"suggest_command\", \"value\": \"hello\"} }";
+            "{\"text\":\"test\", \"clickEvent\": {\"action\": \"suggest_command\", \"value\": \"hello\"} }";
 
         RawText textUrl = new RawText("test")
-                .uri("https://www.zcraft.fr");
+            .uri("https://www.zcraft.fr");
         assertJson(textUrl, urlTest);
 
         RawText textUrl2 = new RawText("test")
-                .uri(new URI("https://www.zcraft.fr"));
+            .uri(new URI("https://www.zcraft.fr"));
         assertJson(textUrl2, urlTest);
 
         RawText textCommand = new RawText("test")
-                .command("/say hi");
+            .command("/say hi");
         assertJson(textCommand, commandTest);
 
         RawText textSuggest = new RawText("test")
-                .suggest("hello");
+            .suggest("hello");
         assertJson(textSuggest, suggestTest);
     }
 
@@ -186,7 +186,7 @@ public class RawTextTest {
     public void insertionTest() {
         final String insertionTest = "{\"text\":\"test\",\"insertion\":\"/say Hello\",\"bold\":false}";
         final RawText text = new RawText("test")
-                .insert("/say Hello");
+            .insert("/say Hello");
 
         assertJson(text, insertionTest);
     }
@@ -195,15 +195,15 @@ public class RawTextTest {
     public void insertionWithOtherStylesTest() {
         final String insertionWithBoldTest = "{\"text\":\"test\",\"insertion\":\"/say Hello\",\"bold\":true}";
         final String insertionWithColorTest =
-                "{\"text\":\"test\",\"insertion\":\"/say Hello\",\"color\":\"dark_green\"}";
+            "{\"text\":\"test\",\"insertion\":\"/say Hello\",\"color\":\"dark_green\"}";
 
         final RawText boldText = new RawText("test")
-                .insert("/say Hello")
-                .style(ChatColor.BOLD);
+            .insert("/say Hello")
+            .style(ChatColor.BOLD);
 
         final RawText colorText = new RawText("test")
-                .insert("/say Hello")
-                .style(ChatColor.DARK_GREEN);
+            .insert("/say Hello")
+            .style(ChatColor.DARK_GREEN);
 
         assertJson(boldText, insertionWithBoldTest);
         assertJson(colorText, insertionWithColorTest);
@@ -213,33 +213,32 @@ public class RawTextTest {
     public void mapDeleteTest() {
         final int mapTestId = 42;
         final String mapDeleteMessage = "{\"text\":\"You are going to delete \",\"extra\":[{\"text\":\"" + mapTestId
-                + "\",\"color\":\"gold\"},{\"text\":\". Are you sure ? \",\"color\":\"white\"},"
-                + "{\"text\":\"[Confirm]\", \"color\":\"green\", \"clickEvent\":"
-                + "{\"action\":\"run_command\",\"value\":\"/maptool delete-noconfirm "
-                + mapTestId + "\"}, "
-                + "\"hoverEvent\":{\"action\":\"show_text\",\"value\":{\"text\":\"This map will be deleted \","
-                + "\"extra\":[{\"text\":\"forever\",\"color\":\"red\",\"bold\":true,\"italic\":true,"
-                + "\"underlined\":true}, {\"text\":\" !\", \"underlined\":true}],\"underlined\":true}}}]}";
-
+            + "\",\"color\":\"gold\"},{\"text\":\". Are you sure ? \",\"color\":\"white\"},"
+            + "{\"text\":\"[Confirm]\", \"color\":\"green\", \"clickEvent\":"
+            + "{\"action\":\"run_command\",\"value\":\"/maptool delete-noconfirm "
+            + mapTestId + "\"}, "
+            + "\"hoverEvent\":{\"action\":\"show_text\",\"value\":{\"text\":\"This map will be deleted \","
+            + "\"extra\":[{\"text\":\"forever\",\"color\":\"red\",\"bold\":true,\"italic\":true,"
+            + "\"underlined\":true}, {\"text\":\" !\", \"underlined\":true}],\"underlined\":true}}}]}";
 
         RawText hoverText = new RawText("This map will be deleted ")
-                .style(ChatColor.UNDERLINE)
-                .then("forever")
-                .style(ChatColor.RED, ChatColor.UNDERLINE, ChatColor.ITALIC, ChatColor.BOLD)
-                .then(" !")
-                .style(ChatColor.UNDERLINE)
-                .build();
+            .style(ChatColor.UNDERLINE)
+            .then("forever")
+            .style(ChatColor.RED, ChatColor.UNDERLINE, ChatColor.ITALIC, ChatColor.BOLD)
+            .then(" !")
+            .style(ChatColor.UNDERLINE)
+            .build();
 
         RawText text = new RawText("You are going to delete ")
-                .then("" + mapTestId)
-                .color(ChatColor.GOLD)
-                .then(". Are you sure ? ")
-                .color(ChatColor.WHITE)
-                .then("[Confirm]")
-                .color(ChatColor.GREEN)
-                .hover(hoverText)
-                .command("/maptool delete-noconfirm " + mapTestId)
-                .build();
+            .then("" + mapTestId)
+            .color(ChatColor.GOLD)
+            .then(". Are you sure ? ")
+            .color(ChatColor.WHITE)
+            .then("[Confirm]")
+            .color(ChatColor.GREEN)
+            .hover(hoverText)
+            .command("/maptool delete-noconfirm " + mapTestId)
+            .build();
 
         assertJson(text, mapDeleteMessage);
     }
@@ -249,31 +248,31 @@ public class RawTextTest {
         final String plainText = "Hello world !";
 
         RawText text = new RawText("Hello ")
-                .then("world")
-                .then(" !")
-                .build();
+            .then("world")
+            .then(" !")
+            .build();
 
-        Assert.assertEquals(plainText, text.toPlainText());
+        Assertions.assertEquals(plainText, text.toPlainText());
     }
 
     @Test
     public void formattedTextTest() {
         final String formattedText = ChatColor.RED + "" + ChatColor.BOLD + "Hello " + ChatColor.RESET
-                + ChatColor.BLUE + "world" + ChatColor.RESET;
+            + ChatColor.BLUE + "world" + ChatColor.RESET;
 
         RawText text = new RawText("Hello ")
-                .style(ChatColor.RED, ChatColor.BOLD)
-                .then("world")
-                .color(ChatColor.BLUE)
-                .build();
+            .style(ChatColor.RED, ChatColor.BOLD)
+            .then("world")
+            .color(ChatColor.BLUE)
+            .build();
 
-        Assert.assertEquals(formattedText, text.toFormattedText());
+        Assertions.assertEquals(formattedText, text.toFormattedText());
     }
 
     @Test
     public void fromFormattedTextTest() {
         final String helloworldTest =
-                "{\"text\":\"Hello\", \"color\":\"red\", \"extra\":[{\"text\":\" world !\", \"color\":\"green\"}]}";
+            "{\"text\":\"Hello\", \"color\":\"red\", \"extra\":[{\"text\":\" world !\", \"color\":\"green\"}]}";
 
         RawText text = RawText.fromFormattedString(ChatColor.RED + "Hello" + ChatColor.GREEN + " world !");
 
@@ -283,11 +282,11 @@ public class RawTextTest {
     @Test
     public void fromFormattedTextWithBaseTest() {
         final String helloWorldTest =
-                "{\"text\":\"\", \"color\":\"gold\", \"insertion\":\"test\", \"extra\":[{\"text\":\"Hello\", "
-                        + "\"color\":\"red\"}, {\"text\":\" world !\", \"color\":\"green\"}]}";
+            "{\"text\":\"\", \"color\":\"gold\", \"insertion\":\"test\", \"extra\":[{\"text\":\"Hello\", "
+                + "\"color\":\"red\"}, {\"text\":\" world !\", \"color\":\"green\"}]}";
 
         RawText text = RawText.fromFormattedString(ChatColor.RED + "Hello" + ChatColor.GREEN + " world !",
-                new RawText().color(ChatColor.GOLD).insert("test"));
+            new RawText().color(ChatColor.GOLD).insert("test"));
 
         assertJson(text, helloWorldTest);
     }
