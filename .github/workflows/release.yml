@@ -51,7 +51,7 @@ jobs:
         run: ./gradlew build --no-daemon
 
       - name: Publish to GitHub Packages
-        run: gradle publish
+        run: ./gradlew publish
         env:
           USERNAME: ${{ github.actor }}
           PASSWORD: ${{ secrets.GITHUB_TOKEN }}

@@ -5,7 +5,7 @@ plugins {
     id("io.papermc.paperweight.userdev") version "1.3.7"
 }
 
-group = "fr.zcraft"
+group = "dev.dejay"
 version = "0.1.0"
 description = "ezlib"
 
@@ -15,8 +15,9 @@ java {
 
 repositories {
     mavenLocal()
-    maven(url = uri("https://jitpack.io"))
+    mavenCentral()
     maven(url = uri("https://repo.papermc.io/repository/maven-public/"))
+    maven(url = uri("https://jitpack.io"))
 }
 
 dependencies {
