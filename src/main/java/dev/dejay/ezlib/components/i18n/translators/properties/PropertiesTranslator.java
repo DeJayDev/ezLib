@@ -61,7 +61,7 @@ import java.util.ResourceBundle;
  * </ul>
  *
  *
- * <h3>Special keys</h3>
+ * Special keys
  *
  * <p>Some keys have a special meaning:</p>
  *

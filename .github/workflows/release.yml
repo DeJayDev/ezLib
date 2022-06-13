@@ -45,7 +45,7 @@ jobs:
           path: |
             ~/.gradle/caches
             ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-cache-${{ hashFiles('**/*.gradle', '**/*.gradle.kts', '**/gradle/wrapper/gradle-wrapper.properties') }}
+          key: gradle-cache-${{ hashFiles('**/*.gradle', '**/*.gradle.kts', '**/gradle/wrapper/gradle-wrapper.properties') }}
 
       - name: Build with Gradle
         run: ./gradlew build --no-daemon

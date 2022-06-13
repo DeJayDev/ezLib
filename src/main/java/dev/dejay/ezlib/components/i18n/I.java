@@ -41,7 +41,7 @@ import org.bukkit.entity.Player;
  * translate something.</p>
  *
  *
- * <h3>The parameters</h3>
+ * The parameters
  *
  * <p>Translated string accept parameters in the following format: {@code {0}}, {@code {1}}, etc.
  * These
@@ -56,7 +56,7 @@ import org.bukkit.entity.Player;
  * above <strong>does not apply</strong> to these translated texts, for convenience reasons.</p>
  *
  *
- * <h3>Extracting strings from the source with {@code xgettext}</h3>
+ * Extracting strings from the source with {@code xgettext}
  *
  * <p>Give the following parameters to extract these strings to a {@code .po} file with
  * {@code xgettext}:</p>

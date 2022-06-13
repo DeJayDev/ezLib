@@ -60,7 +60,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
  * </ul>
  *
  *
- * <h3>YAML structure</h3>
+ * YAML structure
  *
  * <p>The YAML structure must be this one:</p>
  * <pre>

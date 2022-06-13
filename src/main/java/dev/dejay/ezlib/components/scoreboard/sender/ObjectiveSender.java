@@ -50,7 +50,7 @@ import org.jetbrains.annotations.NotNull;
  * receivers.
  *
  *
- * <h3>WARNING</h3>
+ * WARNING
  * <p>This class is intended for use with the sidebar objectives only. Notably, it will force the
  * display position and unregister the objectives previously sent through it. This API may evolve to
  * a generic way to send scoreboard packets, but it's not currently the case.</p>

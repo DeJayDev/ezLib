@@ -56,6 +56,7 @@ public class ChatColoredString {
 
     /**
      * Builds a string of the chat color using the given delimiter.
+     * @return
      */
     public String toString(char delimiter) {
         StringBuilder builder = new StringBuilder();

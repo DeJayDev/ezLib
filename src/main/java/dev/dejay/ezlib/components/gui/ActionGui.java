@@ -413,6 +413,7 @@ public abstract class ActionGui extends InventoryGui {
 
     /**
      * Returns if this GUI has any actions defined.
+     * @return If the GUI has actions
      */
     protected boolean hasActions() {
         return !actions.isEmpty();
